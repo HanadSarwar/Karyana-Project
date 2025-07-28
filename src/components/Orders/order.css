@@ -1,0 +1,221 @@
+.orders-header-unique {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f5f6fa;
+    padding: 18px 24px 10px 16px;
+  }
+  
+  .orders-title-unique {
+    width: 106px;
+    height: 39px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 100%;
+    letter-spacing: -0.5px;
+    margin: 0;
+    color: #181818;
+    opacity: 1;
+    display: flex;
+    align-items: center;
+    transform: rotate(0deg);
+  }
+  
+  .orders-controls-unique {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .orders-search-bar-unique {
+    width: 285px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border: none;
+    border-radius: 8px;
+    opacity: 1;
+    transform: rotate(0deg);
+    padding: 10px 16px;
+    gap: 5px;
+  }
+  
+  .orders-search-icon-unique {
+    color: #bdbdbd;
+    margin-right: 8px;
+  }
+  
+  .orders-search-input-unique {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 1rem;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .orders-city-dropdown-unique {
+    width: 94px;
+    height: 44px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    gap: 5px;
+    opacity: 1;
+    border: none;
+    transform: rotate(0deg);
+  }
+  
+  .orders-status-dropdown-unique {
+    width: 113px;
+    height: 44px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    gap: 5px;
+    opacity: 1;
+    border: none;
+    transform: rotate(0deg);
+  }
+  
+  .orders-date-dropdown-unique {
+    width: 159px;
+    height: 44px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    gap: 5px;
+    opacity: 1;
+    border: none;
+    transform: rotate(0deg);
+  }
+  
+  .orders-dropdown-unique {
+    border: 1px solid #e0e0e0;
+    background: #fff;
+    font-size: 14px;
+    color: #181818;
+    outline: none;
+    border: none;
+    appearance: none;
+    cursor: pointer;
+    transition: border 0.2s;
+  }
+  
+  .orders-dropdown-unique:focus {
+    border: 1.5px solid #bdbdbd;
+  }
+  
+  .order-container-custom {
+    margin-top: 24px;
+    background: #f5f6fa;
+    padding: 24px 0 24px 0;
+    border-radius: 12px;
+    min-height: 200px;
+  }
+  
+  .order-table-custom {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 16px;
+    background-color: transparent;
+    margin-top: 0%;
+  }
+  
+  .order-header-custom {
+    background-color: #f5f6fa;
+  }
+  
+  .order-head-cell-custom {
+    padding: 12px 16px;
+    font-size: 12px;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-align: left;
+  }
+  
+  .order-body-custom {
+    background-color: #fff;
+  }
+  
+  .order-row-custom {
+    transition: background 0.2s;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+    overflow: hidden;
+  }
+  .order-row-custom:last-child {
+    margin-bottom: 0;
+  }
+  
+  .order-cell-custom {
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #1f2937;
+    text-align: left;
+  }
+  
+  .order-status-custom {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  
+  .delivered-status {
+    background-color: #e0e7ff;
+    color: #3b82f6;
+  }
+  
+  .cancelled-status {
+    background-color: #fee2e2;
+    color: #dc2626;
+  }
+  
+  .completed-status {
+    background-color: #d1fae5;
+    color: #10b981;
+  }
+
+.order-row-custom td:first-child {
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+
+.order-row-custom td:last-child {
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.custom-select-wrapper .custom-select {
+  min-width: 0;
+}
+
+.custom-select-city {
+  width: 110px;
+  height: 44px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  opacity: 1;
+  border: none;
+}
+
+.custom-select-status {
+  width: 130px;
+  height: 44px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  opacity: 1;
+  border: none;
+}
+
+.custom-select-date {
+  width: 170px;
+  height: 44px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  opacity: 1;
+  border: none;
+}

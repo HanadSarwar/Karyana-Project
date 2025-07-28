@@ -1,0 +1,40 @@
+/* General Dropdown Styling */
+.custom-select-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.custom-select, .custom-select-city {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: none !important;
+  height: 36px;
+  border: none;
+  border-radius: 6px;
+  background: #fff;
+  padding: 0 30px 0 16px;
+  font-size: 1rem;
+  color: #181818;
+  cursor: pointer;
+  margin: 0 1px;
+}
+
+.custom-select-arrow {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  pointer-events: none;
+  width: 6px;
+  height: 6px;
+  background: transparent;
+  border: solid #888;
+  border-width: 0 2px 2px 0;
+  transform: translateY(-60%) rotate(45deg);
+}
+
+/* Specific Component Overrides */
+.categories-controls .custom-select {
+  margin: 0;
+} 

@@ -1,0 +1,264 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Login container */
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+  z-index: 1;
+}
+
+/* Background image with blur effect */
+.login-container::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('../../../src/assets/Login-Bg-Image.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  filter: blur(2px);
+  z-index: -2;
+  opacity: 0.95;
+}
+
+/* Grid of small blocks */
+.login-container::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    linear-gradient(0deg, rgba(0,0,0,0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px);
+  background-size: 500px 500px;
+  z-index: -1;
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+/* Background pattern */
+.login-background {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  min-height: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+/* Login box */
+.login-box {
+  display: flex;
+  width: 854px;
+  height: 472px;
+  background: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 2; /* Ensure it's above the blurred background */
+  pointer-events: auto;
+  transform: translateZ(0); /* Force hardware acceleration */
+  margin: 20px;
+  align-self: center;
+  backdrop-filter: blur(5px); /* Slight blur for the login box edges */
+}
+
+/* Left side - Image */
+.login-image {
+  flex: 1;
+  background-color: #ff6b35;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* Right side - Form */
+.login-form {
+  flex: 1;
+  padding: 60px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Form header */
+h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #333;
+  font-weight: 600;
+}
+
+.subtitle {
+  color: #666;
+  margin-bottom: 30px;
+  font-size: 0.95rem;
+}
+
+/* Form elements */
+form {
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #444;
+  font-size: 0.9rem;
+}
+
+/* Form inputs - Ensure they're clickable and visible */
+.form-group {
+  position: relative;
+  z-index: 1000;
+  pointer-events: auto !important;
+}
+
+.form-group input {
+  all: unset;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background-color: #f8f9fa;
+  color: #333;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  transition: all 0.3s ease;
+  display: block;
+  position: relative;
+  z-index: 1001;
+  pointer-events: auto !important;
+}
+
+/* Focus states */
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="text"]:focus {
+  border-color: #ff6b35 !important;
+  background-color: white !important;
+  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1) !important;
+  outline: none !important;
+}
+
+/* Remove default focus outline and replace with custom */
+input[type="email"]:focus-visible,
+input[type="password"]:focus-visible,
+input[type="text"]:focus-visible {
+  outline: 2px solid #ff6b35 !important;
+  outline-offset: 2px !important;
+}
+
+/* Ensure form elements are clickable */
+form * {
+  pointer-events: auto !important;
+}
+
+/* Make sure the form container doesn't block clicks */
+.login-form {
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 10;
+}
+
+/* Login button */
+.login-button {
+  width: 100%;
+  padding: 15px;
+  background-color: #ff6b35;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.login-button:hover {
+  background-color: #e65a2b;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.2);
+}
+
+/* Responsive design */
+@media (max-width: 900px) {
+  .login-box {
+    flex-direction: column;
+    height: auto;
+    margin: 20px;
+  }
+  
+  .login-image {
+    display: none;
+  }
+  
+  .login-form {
+    padding: 40px 30px;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 950px) {
+  .login-box {
+    width: 90%;
+    height: auto;
+    flex-direction: column;
+  }
+  
+  .login-image {
+    padding: 30px;
+  }
+  
+  .login-form {
+    padding: 40px 30px;
+  }
+}
