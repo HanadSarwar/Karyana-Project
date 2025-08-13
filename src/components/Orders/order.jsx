@@ -1,29 +1,70 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
+import { FaEllipsisV } from 'react-icons/fa';
 import '../Shared/Dropdown.css';
 import './order.css';
 
-const OrderRow = ({ orderId, retailer, dateTime, totalAmount, status }) => (
-  <tr className="order-row-custom">
-    <td className="order-cell-custom px-6 py-4 whitespace-nowrap">{orderId}</td>
-    <td className="order-cell-custom px-6 py-4 whitespace-nowrap">{retailer}</td>
-    <td className="order-cell-custom px-6 py-4 whitespace-nowrap">{dateTime}</td>
-    <td className="order-cell-custom px-6 py-4 whitespace-nowrap">{totalAmount}</td>
-    <td className="order-cell-custom px-6 py-4 whitespace-nowrap">
-      <span className={`order-status-custom ${status.toLowerCase().replace(' ', '-')}-status`}>
-        {status}
-      </span>
-    </td>
-  </tr>
-);
+const statusOptions = ['Delivered', 'Cancelled', 'Completed'];
+
+const OrderRow = ({ orderId, retailer, dateTime, totalAmount, status, onStatusChange }) => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const handleStatusClick = (option) => {
+    onStatusChange(option);
+    setMenuOpen(false);
+  };
+
+  return (
+    <tr className="order-row-custom" style={{ height: '60px' }}>
+      <td className="order-cell-custom px-6 py-4 whitespace-nowrap">{orderId}</td>
+      <td className="order-cell-custom px-6 py-4 whitespace-nowrap">{retailer}</td>
+      <td className="order-cell-custom px-6 py-4 whitespace-nowrap">{dateTime}</td>
+      <td className="order-cell-custom px-6 py-4 whitespace-nowrap">{totalAmount}</td>
+      <td className="order-cell-custom px-6 py-4 whitespace-nowrap" style={{ position: 'relative' }}>
+        <span className={`order-status-custom ${status.toLowerCase().replace(' ', '-')}-status`}>
+          {status}
+        </span>
+        <div className="order-ellipsis-menu-wrapper" style={{ display: 'inline-block', position: 'relative', marginLeft: 12 }}>
+          <span
+            className="order-ellipsis-menu order-ellipsis-btn"
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            <FaEllipsisV />
+          </span>
+          {menuOpen && (
+            <div className="order-status-dropdown">
+              {statusOptions.map((option) => (
+                <div
+                  key={option}
+                  className="order-status-dropdown-item"
+                  onClick={() => handleStatusClick(option)}
+                >
+                  {option}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </td>
+    </tr>
+  );
+};
 
 const Order = () => {
-  const data = [
+  const [data, setData] = useState([
     { orderId: "#KR21241", retailer: "Javed Sheikh", dateTime: "24/10/2022 12:35 PM", totalAmount: "1200 Rs", status: "Delivered" },
     { orderId: "#KR21241", retailer: "Javed Sheikh", dateTime: "24/10/2022 12:35 PM", totalAmount: "1200 Rs", status: "Cancelled" },
     { orderId: "#KR21241", retailer: "Javed Sheikh", dateTime: "24/10/2022 12:35 PM", totalAmount: "1200 Rs", status: "Completed" },
     { orderId: "#KR21241", retailer: "Javed Sheikh", dateTime: "24/10/2022 12:35 PM", totalAmount: "1200 Rs", status: "Completed" },
-  ];
+  ]);
+
+  const handleStatusChange = (index, newStatus) => {
+    setData((prevData) =>
+      prevData.map((row, i) =>
+        i === index ? { ...row, status: newStatus } : row
+      )
+    );
+  };
 
   return (
     <div>
@@ -71,7 +112,11 @@ const Order = () => {
           </thead>
           <tbody className="order-body-custom bg-white divide-y divide-gray-200">
             {data.map((row, index) => (
-              <OrderRow key={index} {...row} />
+              <OrderRow
+                key={index}
+                {...row}
+                onStatusChange={(newStatus) => handleStatusChange(index, newStatus)}
+              />
             ))}
           </tbody>
         </table>

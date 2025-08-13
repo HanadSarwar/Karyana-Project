@@ -107,6 +107,8 @@
 .brands-table-unique {
   width: 100%;
   margin-top: 20px;
+  padding-right: 20px;
+  box-sizing: border-box;
 }
 
 .brands-table-header-unique {
@@ -117,6 +119,9 @@
   padding: 12px 20px;
   background-color: #f5f6fa;
   border-radius: 10px;
+  align-items: center;
+  gap: 0;
+  box-sizing: border-box;
 }
 
 .brands-table-row-unique {
@@ -128,12 +133,77 @@
   border-radius: 12px;
   margin: 8px 0;
   box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  width: 100%;
+  height: 60px;
+  gap: 0;
+  box-sizing: border-box;
 }
 
 .brands-table-name-unique {
   display: flex;
   align-items: center;
   gap: 10px;
+  padding: 0 8px;
+  justify-content: flex-start;
+}
+
+/* Column-specific styling for proper alignment */
+.brands-table-header-unique > div,
+.brands-table-row-unique > div {
+  padding: 0 8px;
+  text-align: left;
+}
+
+/* Center align toggle switches and action icons */
+.brands-table-header-unique > div:nth-child(7),
+.brands-table-row-unique > div:nth-child(7) {
+  text-align: center;
+}
+
+.brands-table-header-unique > div:nth-child(8),
+.brands-table-row-unique > div:nth-child(8) {
+  text-align: center;
+}
+
+/* Ensure each column is properly positioned */
+.brands-table-header-unique > div:nth-child(1),
+.brands-table-row-unique > div:nth-child(1) {
+  grid-column: 1; /* Name */
+}
+
+.brands-table-header-unique > div:nth-child(2),
+.brands-table-row-unique > div:nth-child(2) {
+  grid-column: 2; /* Category */
+}
+
+.brands-table-header-unique > div:nth-child(3),
+.brands-table-row-unique > div:nth-child(3) {
+  grid-column: 3; /* Commission */
+}
+
+.brands-table-header-unique > div:nth-child(4),
+.brands-table-row-unique > div:nth-child(4) {
+  grid-column: 4; /* Created Date */
+}
+
+.brands-table-header-unique > div:nth-child(5),
+.brands-table-row-unique > div:nth-child(5) {
+  grid-column: 5; /* Status */
+}
+
+.brands-table-header-unique > div:nth-child(6),
+.brands-table-row-unique > div:nth-child(6) {
+  grid-column: 6; /* Active */
+}
+
+.brands-table-header-unique > div:nth-child(7),
+.brands-table-row-unique > div:nth-child(7) {
+  grid-column: 7; /* Toggle Switch */
+}
+
+.brands-table-header-unique > div:nth-child(8),
+.brands-table-row-unique > div:nth-child(8) {
+  grid-column: 8; /* Actions */
 }
 
 .brands-table-logo-unique {

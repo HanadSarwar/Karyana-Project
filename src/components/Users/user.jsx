@@ -137,6 +137,12 @@ const User = () => {
   const [city, setCity] = useState('');
   const [status, setStatus] = useState('');
   const [showModal, setShowModal] = useState(false);
+  
+  // State for managing user data
+  const [salesPersonsData, setSalesPersonsData] = useState(salesPersons);
+  const [warehouseManagersData, setWarehouseManagersData] = useState(warehouseManagers);
+  const [retailersData, setRetailersData] = useState(retailers);
+  const [coordinatorsData, setCoordinatorsData] = useState(coordinators);
 
   const buttonTextMap = {
     0: '+ Add Sales Person',
@@ -150,6 +156,66 @@ const User = () => {
     1: 'Add Warehouse Manager',
     2: 'Add Retailer',
     3: 'Add Coordinator',
+  };
+
+  // Function to handle active status toggle
+  const handleActiveToggle = (userId, userType) => {
+    const updateUserData = (data, setData) => {
+      setData(prevData => 
+        prevData.map(user => 
+          user.id === userId 
+            ? { ...user, active: !user.active }
+            : user
+        )
+      );
+    };
+
+    switch(userType) {
+      case 0:
+        updateUserData(salesPersonsData, setSalesPersonsData);
+        break;
+      case 1:
+        updateUserData(warehouseManagersData, setWarehouseManagersData);
+        break;
+      case 2:
+        updateUserData(retailersData, setRetailersData);
+        break;
+      case 3:
+        updateUserData(coordinatorsData, setCoordinatorsData);
+        break;
+      default:
+        break;
+    }
+  };
+
+  // Function to handle verified status toggle
+  const handleVerifiedToggle = (userId, userType) => {
+    const updateUserData = (data, setData) => {
+      setData(prevData => 
+        prevData.map(user => 
+          user.id === userId 
+            ? { ...user, verified: !user.verified }
+            : user
+        )
+      );
+    };
+
+    switch(userType) {
+      case 0:
+        updateUserData(salesPersonsData, setSalesPersonsData);
+        break;
+      case 1:
+        updateUserData(warehouseManagersData, setWarehouseManagersData);
+        break;
+      case 2:
+        updateUserData(retailersData, setRetailersData);
+        break;
+      case 3:
+        updateUserData(coordinatorsData, setCoordinatorsData);
+        break;
+      default:
+        break;
+    }
   };
 
   return (
@@ -204,7 +270,7 @@ const User = () => {
             <span>Admin Verified</span>
             <span></span>
           </div>
-          {(activeTab === 0 ? salesPersons : activeTab === 1 ? warehouseManagers : activeTab === 2 ? retailers : coordinators).map(user => (
+          {(activeTab === 0 ? salesPersonsData : activeTab === 1 ? warehouseManagersData : activeTab === 2 ? retailersData : coordinatorsData).map(user => (
             <div className="table-row" key={user.id}>
               <div className="user-info">
                 <img src={user.avatar} alt={user.name} />
@@ -218,11 +284,19 @@ const User = () => {
               <span>{user.cnic}</span>
               <span>{user.earnings}</span>
               <label className="switch">
-                <input type="checkbox" checked={user.active} readOnly />
+                <input 
+                  type="checkbox" 
+                  checked={user.active} 
+                  onChange={() => handleActiveToggle(user.id, activeTab)}
+                />
                 <span className="slider round"></span>
               </label>
               <label className="switch">
-                <input type="checkbox" checked={user.verified} readOnly />
+                <input 
+                  type="checkbox" 
+                  checked={user.verified} 
+                  onChange={() => handleVerifiedToggle(user.id, activeTab)}
+                />
                 <span className="slider round"></span>
               </label>
               <span className="more-icon">&#8942;</span>

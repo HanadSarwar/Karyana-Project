@@ -161,9 +161,9 @@
   height: 100vh;
   background: rgba(0,0,0,0.5);
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  z-index: 1000;
+  z-index: 9999 !important;
 }
 
 .pp-modal {
@@ -178,7 +178,8 @@
   flex-direction: column;
   align-items: stretch;
   position: relative;
-  top: 0;
+  top: 90px;
   left: 0;
   transform: none;
+  z-index: 9999 !important;
 }

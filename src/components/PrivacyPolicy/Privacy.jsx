@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { FaPen } from 'react-icons/fa';
+import { createPortal } from 'react-dom';
 import './Privacy.css';
 const initialHtml = `<h3 class="pp-heading">Privacy Policy for Karyana App</h3>
 <p>At <span class="pp-bold">Karyana</span>, we take your privacy and security very seriously. This <span class="pp-bold">Privacy Policy</span> explains how we collect, use, disclose, and protect your personal information when you use our online B2B store for retailers to buy bulk items (the <span class="pp-bold">\"Services\"</span>).</p>
@@ -73,7 +74,7 @@ const Privacy = () => {
         </button>
       </div>
       <div className="pp-content" dangerouslySetInnerHTML={{ __html: policyHtml }} />
-      {modalOpen && (
+      {modalOpen && createPortal(
         <div className="pp-modal-backdrop">
           <div className="pp-modal" onClick={e => e.stopPropagation()}>
             <div className="pp-modal-title">Edit Privacy Policy</div>
@@ -90,7 +91,8 @@ const Privacy = () => {
               <button className="pp-modal-save" onClick={handleSave}>Save</button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.getElementById('modal-root')
       )}
     </div>
   );

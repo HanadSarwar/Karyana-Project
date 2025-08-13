@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { FaPen } from 'react-icons/fa';
+import { createPortal } from 'react-dom';
 import './Conditions.css';
 
 const initialHtml = `<h3 class="tc-heading">Terms & Conditions for Karyana App</h3>
@@ -74,7 +75,7 @@ const Conditions = () => {
         </button>
       </div>
       <div className="tc-content" dangerouslySetInnerHTML={{ __html: conditionsHtml }} />
-      {modalOpen && (
+      {modalOpen && createPortal(
         <div className="tc-modal-backdrop">
           <div className="tc-modal" onClick={e => e.stopPropagation()}>
             <div className="tc-modal-title">Edit Terms & Conditions</div>
@@ -90,7 +91,8 @@ const Conditions = () => {
               <button className="tc-modal-save" onClick={handleSave}>Save</button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.getElementById('modal-root')
       )}
     </div>
   );

@@ -103,14 +103,20 @@
   margin-top: 24px;
   background: #f5f6fa;
   padding: 0 0 16px 0;
+  padding-right: 20px;
+  box-sizing: border-box;
   border-radius: 12px;
+  width: 100%;
+  max-width: 100%;
 }
 
 .ct-tbl {
   width: 100%;
+  max-width: 100%;
   border-collapse: separate;
   border-spacing: 0 12px;
   background: transparent;
+  table-layout: auto;
 }
 
 .ct-thead {
@@ -126,6 +132,8 @@
 }
 
 .ct-row {
+  height: 60px;
+  width: 100%;
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 1px 4px rgba(0,0,0,0.03);

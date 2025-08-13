@@ -124,6 +124,8 @@
   margin-top: 24px;
   background: #f5f6fa;
   padding: 0 0 16px 0;
+  padding-right: 20px;
+  box-sizing: border-box;
   border-radius: 12px;
 }
 
@@ -151,6 +153,7 @@
   border-radius: 12px;
   box-shadow: 0 1px 4px rgba(0,0,0,0.03);
   overflow: hidden;
+  height: 60px;
 }
 
 .bn-row td:first-child {
