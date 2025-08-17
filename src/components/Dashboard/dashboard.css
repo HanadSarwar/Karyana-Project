@@ -55,6 +55,14 @@
   color: #ff6b35;
 }
 
+.menu-item.logout {
+  color: #FF5934;
+}
+
+.menu-item.logout:hover {
+  color: #FF5934;
+}
+
 .menu-item.active {
   background-color: #fff8f5;
   color: #ff6b35;

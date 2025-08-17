@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import { FiMoreVertical } from 'react-icons/fi';
+import { FaArrowLeft, FaEdit, FaTrash } from 'react-icons/fa';
 import './user.css';
 import { createPortal } from 'react-dom';
 
@@ -23,6 +24,9 @@ const salesPersons = [
     avatar: 'https://i.pravatar.cc/40?img=1',
     active: true,
     verified: true,
+    dateOfBirth: '16 May, 1998',
+    address: 'College Town Rawalpindi Road Jand',
+    role: 'Sales Person',
   },
   {
     id: 2,
@@ -35,6 +39,9 @@ const salesPersons = [
     avatar: 'https://i.pravatar.cc/40?img=2',
     active: true,
     verified: true,
+    dateOfBirth: '12 March, 1995',
+    address: 'Gulberg III Lahore',
+    role: 'Sales Person',
   },
   {
     id: 3,
@@ -47,21 +54,27 @@ const salesPersons = [
     avatar: 'https://i.pravatar.cc/40?img=3',
     active: true,
     verified: true,
+    dateOfBirth: '8 July, 1990',
+    address: 'Defence Phase 5 Karachi',
+    role: 'Sales Person',
   },
 ];
 
 const warehouseManagers = [
   {
     id: 1,
-    name: 'Ava Martinez',
-    email: 'ava.martinez@gmail.com',
+    name: 'Muhammad Ali',
+    email: 'alinizami@gmail.com',
     password: 'wm1234',
-    phone: '0300 1234567',
-    cnic: '35202-1234567-8',
+    phone: '0332 22525151',
+    cnic: '36202-2925920-2',
     earnings: '20K',
     avatar: 'https://i.pravatar.cc/40?img=4',
     active: true,
     verified: false,
+    dateOfBirth: '16 May, 1998',
+    address: 'College Town Rawalpindi Road Jand',
+    role: 'Warehouse Manager',
   },
   {
     id: 2,
@@ -74,6 +87,9 @@ const warehouseManagers = [
     avatar: 'https://i.pravatar.cc/40?img=5',
     active: false,
     verified: true,
+    dateOfBirth: '22 October, 1992',
+    address: 'Model Town Lahore',
+    role: 'Warehouse Manager',
   },
 ];
 
@@ -89,6 +105,9 @@ const retailers = [
     avatar: 'https://i.pravatar.cc/40?img=6',
     active: true,
     verified: true,
+    dateOfBirth: '15 January, 1988',
+    address: 'Garden Town Lahore',
+    role: 'Retailer',
   },
   {
     id: 2,
@@ -101,6 +120,9 @@ const retailers = [
     avatar: 'https://i.pravatar.cc/40?img=7',
     active: false,
     verified: false,
+    dateOfBirth: '3 December, 1993',
+    address: 'Johar Town Lahore',
+    role: 'Retailer',
   },
 ];
 
@@ -116,6 +138,9 @@ const coordinators = [
     avatar: 'https://i.pravatar.cc/40?img=8',
     active: true,
     verified: true,
+    dateOfBirth: '7 April, 1991',
+    address: 'Cantt Area Lahore',
+    role: 'Coordinator',
   },
   {
     id: 2,
@@ -128,6 +153,9 @@ const coordinators = [
     avatar: 'https://i.pravatar.cc/40?img=9',
     active: true,
     verified: false,
+    dateOfBirth: '19 June, 1989',
+    address: 'DHA Phase 6 Lahore',
+    role: 'Coordinator',
   },
 ];
 
@@ -137,6 +165,8 @@ const User = () => {
   const [city, setCity] = useState('');
   const [status, setStatus] = useState('');
   const [showModal, setShowModal] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [showUserDetails, setShowUserDetails] = useState(false);
   
   // State for managing user data
   const [salesPersonsData, setSalesPersonsData] = useState(salesPersons);
@@ -156,6 +186,18 @@ const User = () => {
     1: 'Add Warehouse Manager',
     2: 'Add Retailer',
     3: 'Add Coordinator',
+  };
+
+  // Function to handle user details popup
+  const handleUserDetails = (user) => {
+    setSelectedUser(user);
+    setShowUserDetails(true);
+  };
+
+  // Function to close user details popup
+  const closeUserDetails = () => {
+    setShowUserDetails(false);
+    setSelectedUser(null);
   };
 
   // Function to handle active status toggle
@@ -299,11 +341,70 @@ const User = () => {
                 />
                 <span className="slider round"></span>
               </label>
-              <span className="more-icon">&#8942;</span>
+              <span className="more-icon" onClick={() => handleUserDetails(user)}>&#8942;</span>
             </div>
           ))}
         </div>
       </div>
+
+      {/* User Details Right Side Popup - rendered via Portal */}
+      {showUserDetails && selectedUser && createPortal(
+        <div className="user-details-popup">
+          <div className="user-details-header">
+            <button className="back-button" onClick={closeUserDetails}>
+              <FaArrowLeft />
+            </button>
+          </div>
+          
+          <div className="user-details-banner">
+            <div className="user-profile-image">
+              <img src={selectedUser.avatar} alt={selectedUser.name} />
+            </div>
+          </div>
+          
+          <div className="user-details-info">
+            <div className="user-name-section">
+              <div className="user-name-role">
+                <h2 className="user-full-name">{selectedUser.name}</h2>
+                <p className="user-role">{selectedUser.role}</p>
+                <p className="user-email-detail">{selectedUser.email}</p>
+              </div>
+              <button className="edit-button">
+                <FaEdit />
+              </button>
+            </div>
+            
+            <div className="user-details-fields">
+              <div className="detail-field">
+                <label>Phone No</label>
+                <span>{selectedUser.phone}</span>
+              </div>
+              
+              <div className="detail-field">
+                <label>Date of Birth</label>
+                <span>{selectedUser.dateOfBirth}</span>
+              </div>
+              
+              <div className="detail-field">
+                <label>CNIC</label>
+                <span>{selectedUser.cnic}</span>
+              </div>
+              
+              <div className="detail-field">
+                <label>Address</label>
+                <span>{selectedUser.address}</span>
+              </div>
+            </div>
+            
+            <button className="disable-user-btn">
+              <FaTrash />
+              Disable User
+            </button>
+          </div>
+        </div>,
+        document.body
+      )}
+
       {/* Add Sales Person Modal - now rendered via Portal */}
       {showModal && createPortal(
         <div className="usm-modal-bg">

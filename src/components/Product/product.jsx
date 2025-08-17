@@ -6,6 +6,7 @@ import viteLogo from '/vite.svg';
 import WheatImg from '../../assets/WheatImg.png';
 import NeonLogo from '../../assets/Neon.png';
 import './product.css';
+import ProductDropdown from './ProductDropdown';
 const Product = () => {
   const [search, setSearch] = useState("");
   const [city, setCity] = useState("");
@@ -13,6 +14,138 @@ const Product = () => {
   const [category, setCategory] = useState("");
   const [status, setStatus] = useState("");
   const [showAddModal, setShowAddModal] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [dropdownPosition, setDropdownPosition] = useState({ top: '50%', right: '20px' });
+
+  // Product data for dropdown with stock quantities and toggle states
+  const [productsData, setProductsData] = useState([
+    {
+      id: 'P321',
+      name: 'Wheat Grain Bag',
+      urduName: 'گندم کے اناج کا تھیلا',
+      category: 'Wheat',
+      price: '1200 Rs',
+      image: WheatImg,
+      brand: 'Neon',
+      brandLogo: NeonLogo,
+      productsSold: '349',
+      stockQuantity: 400,
+      isActive: false,
+      isAdminVerified: true,
+      packingOptions: ['1 Kg', '4 Kg', '5 Kg', '8 Kg', '10 Kg', '20 Kg'],
+      bulkOptions: [
+        { quantity: '> 1 item', price: '1200 Rs' },
+        { quantity: '> 10 items', price: '1040 Rs' },
+        { quantity: '> 20 items', price: '950 Rs' }
+      ]
+    },
+    {
+      id: 'P322',
+      name: 'Rice Bag',
+      urduName: 'چاول کا تھیلا',
+      category: 'Rice',
+      price: '1500 Rs',
+      image: WheatImg,
+      brand: 'Neon',
+      brandLogo: NeonLogo,
+      productsSold: '289',
+      stockQuantity: 250,
+      isActive: true,
+      isAdminVerified: false,
+      packingOptions: ['2 Kg', '5 Kg', '10 Kg', '25 Kg'],
+      bulkOptions: [
+        { quantity: '> 1 item', price: '1500 Rs' },
+        { quantity: '> 10 items', price: '1350 Rs' },
+        { quantity: '> 20 items', price: '1200 Rs' }
+      ]
+    },
+    {
+      id: 'P323',
+      name: 'Sugar Pack',
+      urduName: 'چینی کا پیک',
+      category: 'Sugar',
+      price: '800 Rs',
+      image: WheatImg,
+      brand: 'Sunrise',
+      brandLogo: NeonLogo,
+      productsSold: '156',
+      stockQuantity: 100,
+      isActive: false,
+      isAdminVerified: false,
+      packingOptions: ['500g', '1 Kg', '2 Kg', '5 Kg'],
+      bulkOptions: [
+        { quantity: '> 1 item', price: '800 Rs' },
+        { quantity: '> 10 items', price: '720 Rs' },
+        { quantity: '> 20 items', price: '680 Rs' }
+      ]
+    },
+    {
+      id: 'P324',
+      name: 'Flour Bag',
+      urduName: 'آٹے کا تھیلا',
+      category: 'Flour',
+      price: '2000 Rs',
+      image: WheatImg,
+      brand: 'WheatCo',
+      brandLogo: NeonLogo,
+      productsSold: '203',
+      stockQuantity: 50,
+      isActive: true,
+      isAdminVerified: true,
+      packingOptions: ['5 Kg', '10 Kg', '25 Kg'],
+      bulkOptions: [
+        { quantity: '> 1 item', price: '2000 Rs' },
+        { quantity: '> 10 items', price: '1800 Rs' },
+        { quantity: '> 20 items', price: '1600 Rs' }
+      ]
+    }
+  ]);
+
+  const handleDropdownClick = (product, event) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const top = rect.bottom + window.scrollY + 10;
+    const right = window.innerWidth - rect.right;
+    
+    setDropdownPosition({ top: `${top}px`, right: `${right}px` });
+    setSelectedProduct(product);
+    setShowDropdown(true);
+  };
+
+  const closeDropdown = () => {
+    setShowDropdown(false);
+    setSelectedProduct(null);
+  };
+
+  const handleStockUpdate = (productId, newStockQuantity) => {
+    setProductsData(prevData => 
+      prevData.map(product => 
+        product.id === productId 
+          ? { ...product, stockQuantity: newStockQuantity }
+          : product
+      )
+    );
+  };
+
+  const handleToggleActive = (productId) => {
+    setProductsData(prevData => 
+      prevData.map(product => 
+        product.id === productId 
+          ? { ...product, isActive: !product.isActive }
+          : product
+      )
+    );
+  };
+
+  const handleToggleAdminVerified = (productId) => {
+    setProductsData(prevData => 
+      prevData.map(product => 
+        product.id === productId 
+          ? { ...product, isAdminVerified: !product.isAdminVerified }
+          : product
+      )
+    );
+  };
 
   return (
     <>
@@ -97,18 +230,30 @@ const Product = () => {
           <span>1 Kg</span>
           <span>1200 Rs</span>
           <span>
-            400<br />
+            {productsData[0].stockQuantity}<br />
             <span className="update-link">Update</span>
           </span>
           <label className="switch">
-            <input type="checkbox" />
+            <input 
+              type="checkbox" 
+              checked={productsData[0].isActive}
+              onChange={() => handleToggleActive('P321')}
+            />
             <span className="slider round"></span>
           </label>
           <label className="switch">
-            <input type="checkbox" checked readOnly />
+            <input 
+              type="checkbox" 
+              checked={productsData[0].isAdminVerified}
+              onChange={() => handleToggleAdminVerified('P321')}
+            />
             <span className="slider round"></span>
           </label>
-          <FaEllipsisV className="product-ellipsis" />
+          <FaEllipsisV 
+            className="product-ellipsis" 
+            onClick={(e) => handleDropdownClick(productsData[0], e)}
+            style={{ cursor: 'pointer' }}
+          />
         </div>
         {/* Row 2 */}
         <div className="product-table-row">
@@ -127,18 +272,30 @@ const Product = () => {
           <span>2 Kg</span>
           <span>1500 Rs</span>
           <span>
-            250<br />
+            {productsData[1].stockQuantity}<br />
             <span className="update-link">Update</span>
           </span>
           <label className="switch">
-            <input type="checkbox" checked readOnly />
+            <input 
+              type="checkbox" 
+              checked={productsData[1].isActive}
+              onChange={() => handleToggleActive('P322')}
+            />
             <span className="slider round"></span>
           </label>
           <label className="switch">
-            <input type="checkbox" />
+            <input 
+              type="checkbox" 
+              checked={productsData[1].isAdminVerified}
+              onChange={() => handleToggleAdminVerified('P322')}
+            />
             <span className="slider round"></span>
           </label>
-          <FaEllipsisV className="product-ellipsis" />
+          <FaEllipsisV 
+            className="product-ellipsis" 
+            onClick={(e) => handleDropdownClick(productsData[1], e)}
+            style={{ cursor: 'pointer' }}
+          />
         </div>
         {/* Row 3 */}
         <div className="product-table-row">
@@ -157,18 +314,30 @@ const Product = () => {
           <span>500g</span>
           <span>800 Rs</span>
           <span>
-            100<br />
+            {productsData[2].stockQuantity}<br />
             <span className="update-link">Update</span>
           </span>
           <label className="switch">
-            <input type="checkbox" />
+            <input 
+              type="checkbox" 
+              checked={productsData[2].isActive}
+              onChange={() => handleToggleActive('P323')}
+            />
             <span className="slider round"></span>
           </label>
           <label className="switch">
-            <input type="checkbox" />
+            <input 
+              type="checkbox" 
+              checked={productsData[2].isAdminVerified}
+              onChange={() => handleToggleAdminVerified('P323')}
+            />
             <span className="slider round"></span>
           </label>
-          <FaEllipsisV className="product-ellipsis" />
+          <FaEllipsisV 
+            className="product-ellipsis" 
+            onClick={(e) => handleDropdownClick(productsData[2], e)}
+            style={{ cursor: 'pointer' }}
+          />
         </div>
         {/* Row 4 */}
         <div className="product-table-row">
@@ -187,18 +356,30 @@ const Product = () => {
           <span>5 Kg</span>
           <span>2000 Rs</span>
           <span>
-            50<br />
+            {productsData[3].stockQuantity}<br />
             <span className="update-link">Update</span>
           </span>
           <label className="switch">
-            <input type="checkbox" checked readOnly />
+            <input 
+              type="checkbox" 
+              checked={productsData[3].isActive}
+              onChange={() => handleToggleActive('P324')}
+            />
             <span className="slider round"></span>
           </label>
           <label className="switch">
-            <input type="checkbox" checked readOnly />
+            <input 
+              type="checkbox" 
+              checked={productsData[3].isAdminVerified}
+              onChange={() => handleToggleAdminVerified('P324')}
+            />
             <span className="slider round"></span>
           </label>
-          <FaEllipsisV className="product-ellipsis" />
+          <FaEllipsisV 
+            className="product-ellipsis" 
+            onClick={(e) => handleDropdownClick(productsData[3], e)}
+            style={{ cursor: 'pointer' }}
+          />
         </div>
       </div>
       {/* Add Product Modal Popup */}
@@ -287,6 +468,15 @@ const Product = () => {
         </div>,
         document.body
       )}
+
+      {/* Product Dropdown */}
+      <ProductDropdown
+        isOpen={showDropdown}
+        onClose={closeDropdown}
+        product={selectedProduct}
+        position={dropdownPosition}
+        onStockUpdate={handleStockUpdate}
+      />
     </>
   );
 }

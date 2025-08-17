@@ -1,16 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './dashboard.css';
 import { FaBell, FaChartBar, FaBox, FaTags, FaUsers, FaShoppingCart, FaMapMarkerAlt, FaImage, FaHistory, FaShieldAlt, FaFileAlt, FaSignOutAlt, FaGem, FaClipboardList, FaBuilding, FaListAlt } from 'react-icons/fa';
+import Notifications from '../Notifications/Notifications';
 
 const Dashboard = ({ children }) => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
 
   const handleLogout = (e) => {
     e.preventDefault();
     localStorage.removeItem('isLoggedIn');
     navigate('/login', { replace: true });
+  };
+
+  const toggleNotifications = () => {
+    setIsNotificationOpen(!isNotificationOpen);
   };
 
   const menuItems = [
@@ -44,9 +50,17 @@ const Dashboard = ({ children }) => {
           </p>
         </div>
         <div className="header-right">
-          <div className="notification-icon">
-            <FaBell />
-            <span className="notification-badge">3</span>
+          <div className="notification-container" style={{ position: 'relative' }}>
+            <div className="notification-icon" onClick={toggleNotifications} style={{ cursor: 'pointer' }}>
+              <FaBell />
+              <span className="notification-badge">3</span>
+            </div>
+            
+            {/* Notification Popup */}
+            <Notifications 
+              isOpen={isNotificationOpen} 
+              onClose={() => setIsNotificationOpen(false)} 
+            />
           </div>
           <div className="profile-info">
             <div className="profile-pic">
@@ -73,7 +87,7 @@ const Dashboard = ({ children }) => {
                 <div
                   key={index}
                   onClick={item.action}
-                  className="menu-item"
+                  className="menu-item logout"
                   style={{ cursor: 'pointer' }}
                 >
                   <span className="menu-icon">{item.icon}</span>
